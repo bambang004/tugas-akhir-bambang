@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Game Memory Matching</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+<style>
+body {
+  font-family: Arial;
+  text-align: center;
+  background: linear-gradient(135deg, #dd9ff0, #7ac2d6);
+  color: white;
+}
+h2 {
+  margin-top: 20px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  gap: 15px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* CARD */
+.card input {
+  display: none;
+}
+
+.box {
+  width: 100px;
+  height: 100px;
+  border-radius: 12px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: 0.5s;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* FRONT & BACK */
+.box div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backface-visibility: hidden;
+  font-size: 30px;
+  border-radius: 12px;
+}
+
+.back {
+  transform: rotateY(180deg);
+  background: rgb(239, 133, 133);
+  color: black;
+}
+
+/* FLIP */
+.box.open {
+  transform: rotateY(180deg);
+}
+
+/* COLOR */
+.blue {
+  background: #3498db;
+}
+
+.btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: rgb(224, 241, 163);
+  color: black;
+  border-radius: 10px;
+  text-decoration: none;
+}
+</style>
+</head>
+
+<body>
+
+<h2>🎮 Game Memory Level 1</h2>
+<p>Cocokkan gambar yang sama!</p>
+
+<div class="grid">
+
+  <!-- APEL -->
+  <div class="card">
+    <div class="box blue" data-card="apel">
+      <div>❓</div>
+      <div class="back">🍎</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="box blue" data-card="apel">
+      <div>❓</div>
+      <div class="back">🍎</div>
+    </div>
+  </div>
+
+  <!-- KUCING -->
+  <div class="card">
+    <div class="box blue" data-card="kucing">
+      <div>❓</div>
+      <div class="back">🐱</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="box blue" data-card="kucing">
+      <div>❓</div>
+      <div class="back">🐱</div>
+    </div>
+  </div>
+
+  <!-- MOBIL -->
+  <div class="card">
+    <div class="box blue" data-card="mobil">
+      <div>❓</div>
+      <div class="back">🚗</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="box blue" data-card="mobil">
+      <div>❓</div>
+      <div class="back">🚗</div>
+    </div>
+  </div>
+
+    <!-- RUMAH -->
+<div class="card">
+  <div class="box blue" data-card="rumah">
+    <div>❓</div>
+    <div class="back">🏠</div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="box blue" data-card="rumah">
+    <div>❓</div>
+    <div class="back">🏠</div>
+  </div>
+</div>
+  </div>
+
+</div>
+
+  <a href="level 2.html" class="btn">
+    <div>
+      <i class="fa-solid fa-circle-right"></i>
+    </div>
+    <span>lanjut</span>
+  </a>
+  
+
+<script>
+const cards = document.querySelectorAll('.box');
+
+let first = null;
+let second = null;
+let lock = false;
+
+cards.forEach(card => {
+  card.addEventListener('click', () => {
+    if (lock) return;
+    if (card === first) return;
+
+    card.classList.add('open');
+
+    if (!first) {
+      first = card;
+    } else {
+      second = card;
+      lock = true;
+
+      checkMatch();
+    }
+  });
+});
+
+function checkMatch() {
+  if (first.dataset.card === second.dataset.card) {
+    // BENAR
+    reset();
+  } else {
+    // SALAH
+    setTimeout(() => {
+      first.classList.remove('open');
+      second.classList.remove('open');
+      reset();
+    }, 700);
+  }
+}
+
+function reset() {
+  first = null;
+  second = null;
+  lock = false;
+}
+</script>
+
+</body>
+</html>

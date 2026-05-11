@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<style>
+
+body {
+  font-family: Arial;
+  text-align: center;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, 80px);
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.card {
+  width: 80px;
+  height: 80px;
+}
+
+.box {
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: 0.5s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.box div {
+  position: absolute;
+  backface-visibility: hidden;
+  font-size: 25px;
+}
+
+.back {
+  transform: rotateY(180deg);
+}
+
+.box.open {
+  transform: rotateY(180deg);
+}
+
+.green {
+  background: linear-gradient(135deg, #00c853, #69f0ae);
+}
+
+/* MATCH */
+.box.match {
+  background: #2ecc71;
+}
+.btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: white;
+  color: black;
+  border-radius: 10px;
+  text-decoration: none;
+}
+.iqon{
+  font-size: 30px;
+}
+
+</style>
+</head>
+
+<body>
+
+<h2>Level 2 🐾</h2>
+
+<div class="grid">
+
+<!-- 20 KARTU = 10 PASANG -->
+
+<div class="card"><div class="box green" data-card="anjing"><div>❓</div><div class="back">🐶</div></div></div>
+<div class="card"><div class="box green" data-card="anjing"><div>❓</div><div class="back">🐶</div></div></div>
+
+<div class="card"><div class="box green" data-card="kucing"><div>❓</div><div class="back">🐱</div></div></div>
+<div class="card"><div class="box green" data-card="kucing"><div>❓</div><div class="back">🐱</div></div></div>
+
+<div class="card"><div class="box green" data-card="kelinci"><div>❓</div><div class="back">🐰</div></div></div>
+<div class="card"><div class="box green" data-card="kelinci"><div>❓</div><div class="back">🐰</div></div></div>
+
+<div class="card"><div class="box green" data-card="panda"><div>❓</div><div class="back">🐼</div></div></div>
+<div class="card"><div class="box green" data-card="panda"><div>❓</div><div class="back">🐼</div></div></div>
+
+<div class="card"><div class="box green" data-card="singa"><div>❓</div><div class="back">🦁</div></div></div>
+<div class="card"><div class="box green" data-card="singa"><div>❓</div><div class="back">🦁</div></div></div>
+
+<div class="card"><div class="box green" data-card="katak"><div>❓</div><div class="back">🐸</div></div></div>
+<div class="card"><div class="box green" data-card="katak"><div>❓</div><div class="back">🐸</div></div></div>
+
+<div class="card"><div class="box green" data-card="monyet"><div>❓</div><div class="back">🐵</div></div></div>
+<div class="card"><div class="box green" data-card="monyet"><div>❓</div><div class="back">🐵</div></div></div>
+
+<div class="card"><div class="box green" data-card="harimau"><div>❓</div><div class="back">🐯</div></div></div>
+<div class="card"><div class="box green" data-card="harimau"><div>❓</div><div class="back">🐯</div></div></div>
+
+<div class="card"><div class="box green" data-card="rubah"><div>❓</div><div class="back">🦊</div></div></div>
+<div class="card"><div class="box green" data-card="rubah"><div>❓</div><div class="back">🦊</div></div></div>
+
+<div class="card"><div class="box green" data-card="sapi"><div>❓</div><div class="back">🐮</div></div></div>
+<div class="card"><div class="box green" data-card="sapi"><div>❓</div><div class="back">🐮</div></div></div>
+
+</div>
+
+    <a href="level 3.html" class="btn">
+      <div class="iqon">
+        <i class="fa-solid fa-circle-right"></i>
+      </div>
+      <span>Lanjut Level 3</span>
+    </a>
+
+<script>
+
+const cards = document.querySelectorAll('.box');
+
+let first = null;
+let second = null;
+let lock = false;
+
+cards.forEach(card => {
+  card.addEventListener('click', () => {
+    if (lock) return;
+    if (card === first) return;
+
+    card.classList.add('open');
+
+    if (!first) {
+      first = card;
+    } else {
+      second = card;
+      lock = true;
+      checkMatch();
+    }
+  });
+});
+
+function checkMatch() {
+  if (first.dataset.card === second.dataset.card) {
+    first.classList.add('match');
+    second.classList.add('match');
+    reset();
+  } else {
+    setTimeout(() => {
+      first.classList.remove('open');
+      second.classList.remove('open');
+      reset();
+    }, 700);
+  }
+}
+
+function reset() {
+  first = null;
+  second = null;
+  lock = false;
+}
+
+</script>
+
+</body>
+</html>

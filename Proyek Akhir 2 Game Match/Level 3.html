@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+
+<style>
+
+body {
+  font-family: Arial;
+  text-align: center;
+  background: linear-gradient(135deg, #66e1ea, #f7b0c3, pink, rgb(229, 244, 177));
+  color: white;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, 80px);
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.card {
+  width: 80px;
+  height: 80px;
+}
+
+.box {
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: 0.5s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.box div {
+  position: absolute;
+  backface-visibility: hidden;
+  font-size: 25px;
+}
+
+.back {
+  transform: rotateY(180deg);
+}
+
+.box.open {
+  transform: rotateY(180deg);
+}
+
+.green {
+  background: linear-gradient(135deg, #4765ed, #fab86d);
+}
+
+/* MATCH */
+.box.match {
+  background: #7aebef;
+}
+.btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: white;
+  color: black;
+  border-radius: 10px;
+  text-decoration: none;
+}
+.iqon{
+  font-size: 30px;
+}
+
+</style>
+</head>
+
+<body>
+
+<h2>Level 3 🍽️</h2>
+
+<div class="grid">
+
+<!-- 20 KARTU = 10 PASANG -->
+
+<div class="card"><div class="box green" data-card="pizza"><div>❓</div><div class="back">🍕</div></div></div>
+<div class="card"><div class="box green" data-card="mie"><div>❓</div><div class="back">🍜</div></div></div>
+
+<div class="card"><div class="box green" data-card="pizza"><div>❓</div><div class="back">🍕</div></div></div>
+<div class="card"><div class="box green" data-card="ayam"><div>❓</div><div class="back">🍗</div></div></div>
+
+<div class="card"><div class="box green" data-card="kentang goreng"><div>❓</div><div class="back">🍟</div></div></div>
+<div class="card"><div class="box green" data-card="mie"><div>❓</div><div class="back">🍜</div></div></div>
+
+<div class="card"><div class="box green" data-card="keju"><div>❓</div><div class="back">🧀</div></div></div>
+<div class="card"><div class="box green" data-card="nasi"><div>❓</div><div class="back">🍚</div></div></div>
+
+<div class="card"><div class="box green" data-card="keju"><div>❓</div><div class="back">🧀</div></div></div>
+<div class="card"><div class="box green" data-card="donat"><div>❓</div><div class="back">🍩</div></div></div>
+
+<div class="card"><div class="box green" data-card="ayam"><div>❓</div><div class="back">🍗</div></div></div>
+<div class="card"><div class="box green" data-card="donat"><div>❓</div><div class="back">🍩</div></div></div>
+
+<div class="card"><div class="box green" data-card="kue"><div>❓</div><div class="back">🧁</div></div></div>
+<div class="card"><div class="box green" data-card="nasi"><div>❓</div><div class="back">🍚</div></div></div>
+
+<div class="card"><div class="box green" data-card="sandwich"><div>❓</div><div class="back">🌮</div></div></div>
+<div class="card"><div class="box green" data-card="permen"><div>❓</div><div class="back">🍭</div></div></div>
+
+<div class="card"><div class="box green" data-card="permen"><div>❓</div><div class="back">🍭</div></div></div>
+<div class="card"><div class="box green" data-card="kue"><div>❓</div><div class="back">🧁</div></div></div>
+
+<div class="card"><div class="box green" data-card="kentang goreng"><div>❓</div><div class="back">🍟</div></div></div>
+<div class="card"><div class="box green" data-card="sandwich"><div>❓</div><div class="back">🌮</div></div></div>
+
+</div>
+    <a href="index.html" class="btn">
+      <div class="iqon">
+        <i class="fa-solid fa-circle-right"></i>
+      </div>
+      <span>Kembali Ke-Berada</span>
+    </a>
+
+<script>
+
+const cards = document.querySelectorAll('.box');
+
+let first = null;
+let second = null;
+let lock = false;
+
+cards.forEach(card => {
+  card.addEventListener('click', () => {
+    if (lock) return;
+    if (card === first) return;
+
+    card.classList.add('open');
+
+    if (!first) {
+      first = card;
+    } else {
+      second = card;
+      lock = true;
+      checkMatch();
+    }
+  });
+});
+
+function checkMatch() {
+  if (first.dataset.card === second.dataset.card) {
+    first.classList.add('match');
+    second.classList.add('match');
+    reset();
+  } else {
+    setTimeout(() => {
+      first.classList.remove('open');
+      second.classList.remove('open');
+      reset();
+    }, 700);
+  }
+}
+
+function reset() {
+  first = null;
+  second = null;
+  lock = false;
+}
+
+</script>
+
+</body>
+</html>
