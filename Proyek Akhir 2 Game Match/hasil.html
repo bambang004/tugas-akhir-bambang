@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hail Data dari lv 1, 2, 3.</title>
+    <style>
+        *{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family: Arial, sans-serif;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background: linear-gradient(135deg,#1e3c72,#2a5298,#764ba2);
+  overflow:hidden;
+  color:white;
+}
+
+/* BACKGROUND BULAT */
+
+.circle{
+  position:absolute;
+  border-radius:50%;
+  background:rgba(255,255,255,0.1);
+  animation: float 8s infinite ease-in-out;
+}
+
+.circle:nth-child(1){
+  width:200px;
+  height:200px;
+  top:10%;
+  left:10%;
+}
+
+.circle:nth-child(2){
+  width:150px;
+  height:150px;
+  bottom:10%;
+  right:15%;
+}
+
+@keyframes float{
+  0%{
+    transform:translateY(0px);
+  }
+
+  50%{
+    transform:translateY(-20px);
+  }
+
+  100%{
+    transform:translateY(0px);
+  }
+}
+
+.container{
+  width:380px;
+  background:rgba(255,255,255,0.12);
+  backdrop-filter: blur(10px);
+  border-radius:25px;
+  padding:25px;
+  box-shadow:0 0 25px rgba(0,0,0,0.4);
+  text-align:center;
+  z-index:10;
+  animation: zoom 1s;
+}
+
+@keyframes zoom{
+  from{
+    transform:scale(0.7);
+    opacity:0;
+  }
+
+  to{
+    transform:scale(1);
+    opacity:1;
+  }
+}
+
+.title{
+  font-size:35px;
+  margin-bottom:20px;
+  color:#ffe082;
+  text-shadow:0 0 15px rgba(255,255,255,0.5);
+}
+
+.level-box{
+  background:rgba(255,255,255,0.15);
+  margin:15px 0;
+  padding:15px;
+  border-radius:20px;
+  transition:0.3s;
+}
+
+.level-box:hover{
+  transform:scale(1.05);
+}
+
+.level-box h2{
+  margin-bottom:10px;
+  color:#fff176;
+}
+
+.info{
+  display:flex;
+  justify-content:space-between;
+  margin-top:10px;
+  font-size:18px;
+}
+
+.total{
+  margin-top:20px;
+  padding:15px;
+  border-radius:20px;
+  background:linear-gradient(135deg,#ff9800,#ff5722);
+  font-size:28px;
+  font-weight:bold;
+  box-shadow:0 0 15px rgba(255,100,0,0.5);
+}
+
+.highscore{
+  margin-top:20px;
+  font-size:24px;
+  color:#ffd700;
+  text-shadow:0 0 10px gold;
+}
+
+button{
+  margin-top:25px;
+  padding:12px 25px;
+  border:none;
+  border-radius:15px;
+  font-size:18px;
+  cursor:pointer;
+  background:linear-gradient(135deg,#00e676,#00c853);
+  color:white;
+  transition:0.3s;
+}
+
+button:hover{
+  transform:scale(1.08);
+}
+
+    </style>
+</head>
+<body>
+    <body>
+
+<div class="circle"></div>
+<div class="circle"></div>
+
+<div class="container">
+
+<h1 class="title">🏆 HASIL AKHIR</h1>
+
+<div class="level-box">
+  <h2>🎮 Level 1</h2>
+
+  <div class="info">
+    <span>⏱️ <span id="t1"></span></span>
+    <span>⭐ <span id="s1"></span></span>
+  </div>
+</div>
+
+<div class="level-box">
+  <h2>🔥 Level 2</h2>
+
+  <div class="info">
+    <span>⏱️ <span id="t2"></span></span>
+    <span>⭐ <span id="s2"></span></span>
+  </div>
+</div>
+
+<div class="level-box">
+  <h2>👑 Level 3</h2>
+
+  <div class="info">
+    <span>⏱️ <span id="t3"></span></span>
+    <span>⭐ <span id="s3"></span></span>
+  </div>
+</div>
+
+<div class="total">
+  TOTAL SCORE :
+  <span id="total"></span>
+</div>
+
+<div class="highscore">
+  🏅 HIGH SCORE :
+  <span id="best"></span>
+</div>
+
+<button onclick="window.location.href='Level 1.html'">
+🎮 Main Lagi
+</button>
+
+</div>
+
+</body>
+<script>
+    const s1 = Number(localStorage.getItem("level1Score")) || 0;
+const s2 = Number(localStorage.getItem("level2Score")) || 0;
+const s3 = Number(localStorage.getItem("level3Score")) || 0;
+
+const t1 = localStorage.getItem("level1Time") || "0:00";
+const t2 = localStorage.getItem("level2Time") || "0:00";
+const t3 = localStorage.getItem("level3Time") || "0:00";
+
+const total = s1 + s2 + s3;
+
+/* TAMPILKAN */
+
+document.getElementById("s1").innerText = s1;
+document.getElementById("s2").innerText = s2;
+document.getElementById("s3").innerText = s3;
+document.getElementById("t1").innerText = t1;
+document.getElementById("t2").innerText = t2;
+document.getElementById("t3").innerText = t3;
+
+document.getElementById("total").innerText = total;
+
+/* HIGH SCORE */
+
+let best = localStorage.getItem("bestScore") || 0;
+
+if(total > best){
+
+  best = total;
+
+  localStorage.setItem("bestScore", best);
+
+}
+
+document.getElementById("best").innerText = best;
+</script>
+</body>
+</html>
